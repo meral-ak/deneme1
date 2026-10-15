@@ -31,19 +31,7 @@ jobs:
         run: |
           java -version
           mvn -version
-
-      - name: Fix invalid spaces in Java files
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-
-          for file in Path("src").rglob("*.java"):
-              content = file.read_text(encoding="utf-8")
-              fixed = content.replace("\u00a0", " ")
-              file.write_text(fixed, encoding="utf-8")
-              print(f"Checked: {file}")
-          PY
-
+          
       - name: Build and Test
         run: mvn --batch-mode clean verify
 
